@@ -1,51 +1,51 @@
-﻿# 🏆 Projet DevOps IC Group
+﻿  Projet DevOps IC Group
 
-## 📋 Description du Projet
+  Description du Projet
 Déploiement d'une infrastructure DevOps complète pour la société IC Group incluant un site web vitrine, Odoo ERP et pgAdmin.
 
-## 🚀 Applications Déployées
+ Applications Déployées
 
-### 🌐 Site Vitrine IC Group
-- **URL** : http://localhost:8080
-- **Technologie** : Python/Flask conteneurisé
-- **Statut** : ✅ Production
+  Site Vitrine IC Group
+- URL : http://localhost:8080
+- Technologie : Python/Flask conteneurisé
+- Statut : ✅ Production
 
-### 🏢 Odoo ERP
-- **URL** : http://localhost:8069
-- **Description** : ERP de gestion d'entreprise
-- **Base de données** : PostgreSQL
+  Odoo ERP
+- URL : http://localhost:8069
+- Description : ERP de gestion d'entreprise
+- Base de données : PostgreSQL
 
-### 📊 pgAdmin
-- **URL** : http://localhost:8890
-- **Description** : Interface d'administration PostgreSQL
-- **Identifiants** : admin@icgroup.com / admin123
+  pgAdmin
+- URL : http://localhost:8890
+- Description : Interface d'administration PostgreSQL
+- Identifiants : admin@icgroup.com / admin123
 
-## 🏗️ Architecture DevOps
+  Architecture DevOps
 
-### 📦 Partie 1 - Containerisation
+ Partie 1 - Containerisation
 - Application web vitrine conteneurisée
 - Image Docker : ic-webapp:1.0
 - Variables d'environnement : ODOO_URL, PGADMIN_URL
 
-### ⚙️ Partie 2 - CI/CD
+  Partie 2 - CI/CD
 - Pipeline Jenkins avec 5 stages
 - Rôles Ansible : odoo_role, pgadmin_role
 - Fichier releases.txt pour l'automatisation
 
-### ☸️ Partie 3 - Kubernetes
+ Partie 3 - Kubernetes
 - Namespace : icgroup
 - Label : env=prod
 - Manifests complets pour le déploiement
 
-## 🛠️ Technologies Utilisées
+ Technologies Utilisées
 
-- **Containerisation** : Docker, Docker Compose
-- **CI/CD** : Jenkins, Ansible
-- **Orchestration** : Kubernetes, Minikube
-- **Applications** : Python/Flask, Odoo, pgAdmin, PostgreSQL
-- **Scripting** : PowerShell, Bash
+- Containerisation : Docker, Docker Compose
+- CI/CD : Jenkins, Ansible
+- Orchestration : Kubernetes, Minikube
+- Applications : Python/Flask, Odoo, pgAdmin, PostgreSQL
+- Scripting : PowerShell, Bash
 
-## 📁 Structure du Projet
+ 📁 Structure du Projet
 
 \\\
 projet-file-rouge/
@@ -62,29 +62,29 @@ projet-file-rouge/
 └── README.md
 \\\
 
-## 🚀 Démarrage Rapide
+ Démarrage Rapide
 
 \\\ash
-# Cloner le projet
+ Cloner le projet
 git clone <url-du-repo>
 
-# Builder l'image Docker
+Builder l'image Docker
 docker build -t ic-webapp:1.0 .
 
-# Démarrer les services
+ Démarrer les services
 docker-compose -f docker-compose.prod.yml up -d
 \\\
 
-## 📊 Résultats
+ Résultats
 
 - ✅ 3 applications déployées et fonctionnelles
 - ✅ 100% des spécifications respectées
 - ✅ Architecture DevOps complète
 - ✅ Documentation exhaustive
 
-## 👥 Auteurs
+ Auteur
 
-- **Votre Nom** - Ingénieur DevOps
+- Grace Seha
 
 ## 📄 Licence
 
