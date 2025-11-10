@@ -1,0 +1,64 @@
+﻿---
+- name: Déploiement Production IC GROUP
+  hosts: all
+  connection: local
+  become: yes
+  
+  vars:
+    dockerhub_username: "gseha"
+    network_name: "icgroup_network"
+    
+  tasks:
+    - name: Vérifier Docker
+      command: docker --version
+      register: docker_version
+      changed_when: false
+      
+    - name: Afficher version Docker
+      debug:
+        msg: "{{ docker_version.stdout }}"
+        
+    - name: Créer le réseau Docker
+      community.docker.docker_network:
+        name: "{{ network_name }}"
+        driver: bridge
+        state: present
+        
+    - name: Démarrer Odoo
+      community.docker.docker_container:
+        name: odoo_app
+        image: odoo:13.0
+        state: started
+        restart_policy: always
+        ports:
+          - "8069:8069"
+        networks:
+          - name: "{{ network_name }}"
+          
+    - name: Démarrer pgAdmin
+      community.docker.docker_container:
+        name: pgadmin_app
+        image: dpage/pgadmin4
+        state: started
+        restart_policy: always
+        ports:
+          - "5050:80"
+        env:
+          PGADMIN_DEFAULT_EMAIL: "admin@icgroup.com"
+          PGADMIN_DEFAULT_PASSWORD: "admin"
+        networks:
+          - name: "{{ network_name }}"
+          
+    - name: Démarrer l'application web
+      community.docker.docker_container:
+        name: ic_webapp
+        image: "{{ dockerhub_username }}/ic-webapp:latest"
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:8080"
+        env:
+          ODOO_URL: "http://odoo_app:8069"
+          PGADMIN_URL: "http://pgadmin_app:80"
+        networks:
+          - name: "{{ network_name }}"

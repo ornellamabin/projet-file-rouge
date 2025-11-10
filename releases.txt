@@ -1,0 +1,3 @@
+﻿ODOO_URL http://localhost:8069
+PGADMIN_URL http://localhost:8888
+Version 1.1

@@ -1,0 +1,5 @@
+﻿---
+- name: restart odoo stack
+  command: docker-compose restart
+  args:
+    chdir: /opt/odoo

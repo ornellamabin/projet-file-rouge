@@ -1,0 +1,5 @@
+﻿network_name: "icgroup_network"
+odoo_service_name: "odoo_app"
+odoo_container_name: "odoo_container"
+postgres_container_name: "postgres_odoo"
+postgres_volume_path: "/data/odoo/postgres"

@@ -1,0 +1,37 @@
+﻿version: '3.8'
+services:
+  {{ postgres_container_name }}:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - {{ volume_name }}:/var/lib/postgresql/data
+    networks:
+      - {{ network_name }}
+
+  {{ odoo_container_name }}:
+    image: odoo:13
+    depends_on:
+      - {{ postgres_container_name }}
+    environment:
+      HOST: {{ postgres_container_name }}
+      USER: odoo
+      PASSWORD: odoo
+    ports:
+      - "8069:8069"
+    networks:
+      - {{ network_name }}
+
+volumes:
+  {{ volume_name }}:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: "{{ volume_path }}"
+
+networks:
+  {{ network_name }}:
+    driver: bridge

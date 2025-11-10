@@ -1,0 +1,33 @@
+﻿apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: odoo-pv
+  labels:
+    type: local
+    app: odoo
+    env: prod
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/k8s/odoo"
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: odoo-pvc
+  namespace: icgroup
+  labels:
+    app: odoo
+    env: prod
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

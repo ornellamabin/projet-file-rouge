@@ -1,0 +1,26 @@
+﻿---
+- name: Create directory for pgAdmin data
+  file:
+    path: "{{ pgadmin_volume_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create servers.json configuration
+  template:
+    src: servers.json.j2
+    dest: /opt/pgadmin/servers.json
+
+- name: Deploy pgAdmin with Docker Compose
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/pgadmin/docker-compose.yml
+  notify: restart pgadmin stack
+
+- name: Deploy pgAdmin stack
+  community.docker.docker_compose:
+    project_src: /opt/pgadmin
+    files:
+      - docker-compose.yml
+    state: present

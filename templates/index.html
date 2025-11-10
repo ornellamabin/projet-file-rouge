@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC GROUP - Applications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IC GROUP - Portail Applications</h1>
+            <p>Accédez à nos applications internes</p>
+        </header>
+        
+        <div class="applications-grid">
+            <div class="app-card">
+                <h2>Odoo ERP</h2>
+                <p>Gestion intégrée des ventes, achats, comptabilité et inventaire</p>
+                <a href="{{ odoo_url }}" target="_blank" class="btn">Accéder à Odoo</a>
+            </div>
+            
+            <div class="app-card">
+                <h2>pgAdmin</h2>
+                <p>Interface d'administration graphique pour PostgreSQL</p>
+                <a href="{{ pgadmin_url }}" target="_blank" class="btn">Accéder à pgAdmin</a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 IC GROUP. Tous droits réservés.</p>
+        </footer>
+    </div>
+</body>
+</html>

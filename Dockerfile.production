@@ -1,0 +1,22 @@
+﻿FROM python:3.6-alpine
+
+WORKDIR /opt
+
+# Installation des dépendances
+RUN apk add --no-cache gcc musl-dev
+RUN pip install --no-cache-dir Flask gunicorn
+
+# Copie des fichiers de l'application
+COPY app.py /opt/
+COPY templates/ /opt/templates/
+COPY static/ /opt/static/
+COPY releases.txt /tmp/
+
+# Variables d'environnement
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+
+EXPOSE 8080
+
+# Utiliser Gunicorn pour la production
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "4", "app:app"]

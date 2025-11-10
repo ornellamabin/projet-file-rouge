@@ -1,0 +1,32 @@
+﻿---
+- name: Install Docker on all servers
+  hosts: all
+  become: yes
+  roles:
+    - docker_installation
+
+- name: Deploy Web Portal
+  hosts: web_servers
+  become: yes
+  tasks:
+    - name: Pull latest web app image
+      docker_image:
+        name: gseha/ic-webapp:{{ version }}
+        source: pull
+
+    - name: Run web application container
+      docker_container:
+        name: portail-icgroup
+        image: gseha/ic-webapp:{{ version }}
+        ports:
+          - "8080:8080"
+        env:
+          FLASK_ENV: "production"
+        restart_policy: always
+
+- name: Deploy Odoo Stack
+  hosts: odoo_servers
+  become: yes
+  roles:
+    - odoo_role
+    - pgadmin_role

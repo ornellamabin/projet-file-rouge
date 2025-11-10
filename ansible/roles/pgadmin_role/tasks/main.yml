@@ -1,0 +1,31 @@
+﻿---
+- name: Create pgAdmin directory
+  file:
+    path: "{{ servers_json_path | dirname }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Deploy servers.json configuration
+  template:
+    src: servers.json.j2
+    dest: "{{ servers_json_path }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Deploy pgAdmin with Docker Compose
+  template:
+    src: docker-compose.yml.j2
+    dest: "/home/{{ ansible_user }}/pgadmin-docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Start pgAdmin service
+  community.docker.docker_compose_v2:
+    project_src: "/home/{{ ansible_user }}"
+    files:
+      - pgadmin-docker-compose.yml
+    state: present

@@ -1,0 +1,23 @@
+﻿---
+- name: Create data directory
+  file:
+    path: "{{ data_directory }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Deploy Odoo with Docker Compose
+  template:
+    src: docker-compose.yml.j2
+    dest: "/home/{{ ansible_user }}/odoo-docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Start Odoo services
+  community.docker.docker_compose_v2:
+    project_src: "/home/{{ ansible_user }}"
+    files:
+      - odoo-docker-compose.yml
+    state: present

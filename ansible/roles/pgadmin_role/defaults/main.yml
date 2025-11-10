@@ -1,0 +1,5 @@
+﻿---
+network_name: icgroup-network
+pgadmin_email: "admin@icgroup.com"
+pgadmin_password: "admin123"
+servers_json_path: "/opt/pgadmin/servers.json"

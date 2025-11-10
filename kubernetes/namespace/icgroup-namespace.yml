@@ -1,0 +1,8 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: icgroup
+  labels:
+    name: icgroup
+    env: prod
+    project: icgroup-erp

@@ -1,0 +1,27 @@
+﻿---
+- name: Deploy pgAdmin with Docker Compose
+  hosts: all
+  vars:
+    network_name: "{{ network_name | default('icgroup-network') }}"
+    pgadmin_container_name: "{{ pgadmin_container_name | default('pgadmin-app') }}"
+    pgadmin_email: "{{ pgadmin_email | default('admin@icgroup.com') }}"
+    pgadmin_password: "{{ pgadmin_password | default('admin123') }}"
+    
+  tasks:
+    - name: Create servers.json directory
+      file:
+        path: /opt/pgadmin_config
+        state: directory
+        mode: '0755'
+        
+    - name: Copy servers.json configuration
+      copy:
+        src: servers.json
+        dest: /opt/pgadmin_config/servers.json
+        mode: '0644'
+        
+    - name: Deploy pgAdmin stack
+      docker_compose:
+        project_src: "{{ playbook_dir }}"
+        files:
+          - docker-compose-pgadmin.yml

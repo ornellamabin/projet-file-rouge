@@ -1,0 +1,12 @@
+﻿[jenkins_servers]
+localhost ansible_connection=local
+
+[web_servers]
+localhost ansible_connection=local
+
+[odoo_servers]
+localhost ansible_connection=local
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+dockerhub_username=gseha

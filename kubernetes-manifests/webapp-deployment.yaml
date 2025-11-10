@@ -1,0 +1,51 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  namespace: icgroup
+  labels:
+    app: webapp
+    env: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+        env: prod
+    spec:
+      containers:
+      - name: webapp
+        image: ic-webapp:1.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ODOO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: odoo-config
+              key: ODOO_URL
+        - name: PGADMIN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: odoo-config
+              key: PGADMIN_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+  namespace: icgroup
+  labels:
+    app: webapp
+    env: prod
+spec:
+  selector:
+    app: webapp
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: LoadBalancer

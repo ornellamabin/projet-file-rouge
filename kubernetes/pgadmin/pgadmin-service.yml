@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin-service
+  namespace: icgroup
+  labels:
+    app: pgadmin
+    env: prod
+spec:
+  selector:
+    app: pgadmin
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

@@ -1,0 +1,18 @@
+﻿version: '3.8'
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    networks:
+      - {{ network_name }}
+    environment:
+      - PGADMIN_DEFAULT_EMAIL={{ pgadmin_email }}
+      - PGADMIN_DEFAULT_PASSWORD={{ pgadmin_password }}
+    volumes:
+      - {{ servers_json_path }}:/pgadmin4/servers.json
+
+networks:
+  {{ network_name }}:
+    external: true
+    name: {{ network_name }}

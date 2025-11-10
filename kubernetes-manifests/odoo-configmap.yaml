@@ -1,0 +1,10 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: odoo-config
+  namespace: icgroup
+  labels:
+    env: prod
+data:
+  ODOO_URL: "http://odoo-service:8069"
+  PGADMIN_URL: "http://pgadmin-service:80"

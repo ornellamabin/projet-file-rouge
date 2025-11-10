@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: odoo-service
+  namespace: icgroup
+  labels:
+    app: odoo
+    env: prod
+spec:
+  selector:
+    app: odoo
+  ports:
+  - port: 8069
+    targetPort: 8069
+  type: LoadBalancer
