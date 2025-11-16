@@ -1,8 +1,0 @@
-﻿---
-network_name: icgroup-network
-volume_name: odoo-data
-data_directory: "/opt/odoo/data"
-postgres_host: "postgres"
-postgres_user: "odoo"
-postgres_password: "odoo-password"
-odoo_version: "13.0"

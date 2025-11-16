@@ -1,0 +1,74 @@
+﻿version: '3.8'
+
+services:
+  # Database PostgreSQL pour Odoo
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo123
+    networks:
+      - icgroup-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Odoo ERP
+  odoo:
+    image: odoo:13.0
+    depends_on:
+      - postgres
+    ports:
+      - "8069:8069"
+    networks:
+      - icgroup-network
+    volumes:
+      - odoo-data:/var/lib/odoo
+    environment:
+      - HOST=postgres
+      - USER=odoo
+      - PASSWORD=odoo123
+    restart: unless-stopped
+
+  # pgAdmin - Port corrigé à 8888
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "8888:80"  # ← Changé de 5050:80 à 8888:80
+    networks:
+      - icgroup-network
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@icgroup.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    volumes:
+      - ./pgadmin/servers.json:/pgadmin4/servers.json
+    restart: unless-stopped
+
+  # Portail IC GROUP (votre application)
+  webapp:
+    image: gseha/ic-webapp:1.0
+    ports:
+      - "8080:8080"
+    networks:
+      - icgroup-network
+    environment:
+      - FLASK_ENV=production
+      - ODOO_URL=http://localhost:8069
+      - PGADMIN_URL=http://localhost:8888  # ← Mise à jour ici aussi
+    depends_on:
+      - odoo
+      - pgadmin
+    restart: unless-stopped
+
+networks:
+  icgroup-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  odoo-data:
+    driver: local

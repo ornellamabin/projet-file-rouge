@@ -2,13 +2,13 @@
     "Servers": {
         "1": {
             "Name": "Odoo Database",
-            "Group": "Servers",
+            "Group": "IC GROUP",
             "Host": "postgres",
             "Port": 5432,
             "MaintenanceDB": "postgres",
-            "Username": "{{ postgres_user }}",
-            "SSLMode": "prefer",
-            "PassFile": "/pgpass"
+            "Username": "odoo",
+            "Password": "odoo123",
+            "SSLMode": "prefer"
         }
     }
 }

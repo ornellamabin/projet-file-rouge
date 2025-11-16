@@ -1,0 +1,27 @@
+﻿version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres-app
+    environment:
+      POSTGRES_DB: icgroup
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    container_name: adminer-app
+    ports:
+      - "8088:8080"
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+
+networks:
+  app-network:
+    driver: bridge

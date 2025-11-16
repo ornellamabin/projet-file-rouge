@@ -1,4 +1,0 @@
-﻿network_name: "icgroup_network"
-pgadmin_service_name: "pgadmin_app"
-pgadmin_container_name: "pgadmin_container"
-pgadmin_volume_path: "/data/pgadmin"

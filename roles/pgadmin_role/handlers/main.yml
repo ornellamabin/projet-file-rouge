@@ -1,5 +1,0 @@
-﻿---
-- name: restart pgadmin stack
-  command: docker-compose restart
-  args:
-    chdir: /opt/pgadmin
