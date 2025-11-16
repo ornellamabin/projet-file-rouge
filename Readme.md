@@ -116,9 +116,3 @@ docker-compose -f docker-compose.prod.yml up -d
  👥 Auteurs
 
 - Grace Seha
-=======
-alisé dans le cadre de la formation DevOps IC Group.
-
----
-*Dernière mise à jour : 2025-11-11*
->>>>>>> 8e72effd1b2a0355534f9f7b01bcefece82c7f27
